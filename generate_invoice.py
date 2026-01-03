@@ -20,6 +20,7 @@ def create_logo_placeholder(filename='logo.png'):
     """Create a simple placeholder logo if it doesn't exist."""
     if not os.path.exists(filename):
         from PIL import Image, ImageDraw, ImageFont
+        import sys
         
         # Create a simple logo placeholder
         img = Image.new('RGB', (200, 80), color='#2c3e50')
@@ -28,13 +29,31 @@ def create_logo_placeholder(filename='logo.png'):
         # Draw a simple design
         draw.rectangle([10, 10, 190, 70], outline='#3498db', width=3)
         
-        # Try to add text
-        try:
-            font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 24)
-            draw.text((100, 40), 'LOGO', anchor='mm', fill='#3498db', font=font)
-        except:
-            # If font is not available, just use the rectangle
-            pass
+        # Try to add text with platform-specific font paths
+        font_paths = [
+            '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',  # Linux
+            '/System/Library/Fonts/Helvetica.ttc',  # macOS
+            'C:\\Windows\\Fonts\\arial.ttf',  # Windows
+            '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',  # Linux alternative
+        ]
+        
+        font_loaded = False
+        for font_path in font_paths:
+            try:
+                font = ImageFont.truetype(font_path, 24)
+                draw.text((100, 40), 'LOGO', anchor='mm', fill='#3498db', font=font)
+                font_loaded = True
+                break
+            except:
+                continue
+        
+        if not font_loaded:
+            # If no font is available, use default font
+            try:
+                draw.text((70, 25), 'LOGO', fill='#3498db')
+            except:
+                # Just use the rectangle if text fails completely
+                pass
         
         img.save(filename)
         print(f"Created placeholder logo: {filename}")

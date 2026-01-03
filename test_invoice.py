@@ -44,7 +44,8 @@ def test_pdf_generation():
     """Test that PDF can be generated."""
     print("\nTesting PDF generation...")
     
-    test_output = '/tmp/test_invoice.pdf'
+    import tempfile
+    test_output = os.path.join(tempfile.gettempdir(), 'test_invoice.pdf')
     
     try:
         from generate_invoice import create_invoice_pdf

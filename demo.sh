@@ -21,13 +21,21 @@ echo ""
 echo "=========================================="
 echo "Generated Files:"
 echo "=========================================="
-ls -lh *.pdf 2>/dev/null | awk '{print "  - " $9 " (" $5 ")"}'
+if ls *.pdf >/dev/null 2>&1; then
+    for file in *.pdf; do
+        [ -e "$file" ] && ls -lh "$file" | awk '{print "  - " $9 " (" $5 ")"}'
+    done
+fi
 echo ""
 
 echo "=========================================="
 echo "CSV Data Files:"
 echo "=========================================="
-ls -lh *.csv 2>/dev/null | awk '{print "  - " $9 " (" $5 ")"}'
+if ls *.csv >/dev/null 2>&1; then
+    for file in *.csv; do
+        [ -e "$file" ] && ls -lh "$file" | awk '{print "  - " $9 " (" $5 ")"}'
+    done
+fi
 echo ""
 
 echo "=========================================="
