@@ -1,0 +1,6 @@
+descripcion,precio_unitario,unidades,total,validez
+Consultoría de Desarrollo,85.00,40,3400.00,30 días
+Diseño de Interface UI/UX,95.00,25,2375.00,45 días
+Mantenimiento y Soporte,60.00,15,900.00,60 días
+Integración de API,75.00,20,1500.00,30 días
+Testing y QA,65.00,18,1170.00,30 días
